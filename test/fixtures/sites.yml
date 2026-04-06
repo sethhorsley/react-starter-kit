@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  subdomain: MyString
+  user: one
+  mode: 1
+  status: 1
+  framework: MyString
+  editor_version: 1
+  current_revision_id: MyString
+  published_revision_id: MyString
+  theme_config: 
+  seo_config: 
+  site_config: 
+
+two:
+  name: MyString
+  subdomain: MyString
+  user: two
+  mode: 1
+  status: 1
+  framework: MyString
+  editor_version: 1
+  current_revision_id: MyString
+  published_revision_id: MyString
+  theme_config: 
+  seo_config: 
+  site_config: 

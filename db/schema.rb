@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_02_11_160811) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_06_140635) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -18,6 +21,24 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_11_160811) do
     t.string "user_agent"
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "sites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "current_revision_id"
+    t.integer "editor_version", default: 0, null: false
+    t.integer "framework", default: 0, null: false
+    t.integer "mode", default: 0, null: false
+    t.string "name"
+    t.bigint "published_revision_id"
+    t.jsonb "seo_config"
+    t.jsonb "site_config"
+    t.integer "status", default: 0, null: false
+    t.string "subdomain", null: false
+    t.jsonb "theme_config"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_sites_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,4 +52,5 @@ ActiveRecord::Schema[8.1].define(version: 2025_02_11_160811) do
   end
 
   add_foreign_key "sessions", "users"
+  add_foreign_key "sites", "users"
 end
