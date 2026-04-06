@@ -1,14 +1,10 @@
+import type { ResolvedComponent } from "@inertiajs/react"
 import { createInertiaApp } from "@inertiajs/react"
-import { type ReactNode, createElement } from "react"
+import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 
 import { initializeTheme } from "@/hooks/use-appearance"
 import PersistentLayout from "@/layouts/persistent-layout"
-
-// Temporary type definition, until @inertiajs/react provides one
-interface ResolvedComponent {
-  default: ReactNode & { layout?: (page: ReactNode) => ReactNode }
-}
 
 const appName = import.meta.env.VITE_APP_NAME ?? "React Starter Kit"
 
@@ -19,9 +15,12 @@ void createInertiaApp({
   title: (title) => (title ? `${title} - ${appName}` : appName),
 
   resolve: (name) => {
-    const pages = import.meta.glob<ResolvedComponent>("../pages/**/*.tsx", {
-      eager: true,
-    })
+    const pages = import.meta.glob<{ default: ResolvedComponent }>(
+      "../pages/**/*.tsx",
+      {
+        eager: true,
+      },
+    )
     const page = pages[`../pages/${name}.tsx`]
     if (!page) {
       console.error(`Missing Inertia page component: '${name}.tsx'`)
@@ -31,8 +30,7 @@ void createInertiaApp({
     // and use the following line.
     // see https://inertia-rails.dev/guide/pages#default-layouts
     //
-    page.default.layout ??= (page) =>
-      createElement(PersistentLayout, null, page)
+    page.default.layout ??= [PersistentLayout]
 
     return page
   },
@@ -40,10 +38,27 @@ void createInertiaApp({
   setup({ el, App, props }) {
     // Uncomment the following to enable SSR hydration:
     // if (el.hasChildNodes()) {
-    //   hydrateRoot(el, createElement(App, props))
+    //   hydrateRoot(el, <App {...props} />)
     //   return
     // }
-    createRoot(el).render(createElement(App, props))
+    createRoot(el).render(
+      <StrictMode>
+        <App {...props} />
+      </StrictMode>,
+    )
+  },
+
+  defaults: {
+    form: {
+      forceIndicesArrayFormatInFormData: false,
+      withAllErrors: true,
+    },
+    future: {
+      useScriptElementForInitialPage: true,
+      useDataInertiaHeadAttribute: true,
+      useDialogForErrorModal: true,
+      preserveEqualProps: true,
+    },
   },
 
   progress: {

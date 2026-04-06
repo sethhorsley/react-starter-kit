@@ -1,29 +1,20 @@
-import { router, usePage } from "@inertiajs/react"
-import { useEffect, useState } from "react"
+import { usePage } from "@inertiajs/react"
+import { useEffect } from "react"
 import { toast } from "sonner"
 
-import type { Flash } from "@/types"
+import type { FlashData } from "@/types"
 
-const emptyFlash = {}
+function showFlash(flash: FlashData) {
+  if (flash.alert) toast.error(flash.alert)
+  if (flash.notice) toast(flash.notice)
+}
 
-export const useFlash = () => {
-  const { flash } = usePage<{ flash: Flash }>().props
-  const [currentFlash, setCurrentFlash] = useState<Flash>(emptyFlash)
+export function useFlash() {
+  const { flash } = usePage()
 
   useEffect(() => {
-    setCurrentFlash(flash)
+    // setTimeout + cleanup prevents double-firing in React StrictMode
+    const timeout = setTimeout(() => showFlash(flash), 0)
+    return () => clearTimeout(timeout)
   }, [flash])
-
-  router.on("start", () => {
-    setCurrentFlash(emptyFlash)
-  })
-
-  useEffect(() => {
-    if (currentFlash.alert) {
-      toast.error(currentFlash.alert)
-    }
-    if (currentFlash.notice) {
-      toast(currentFlash.notice)
-    }
-  }, [currentFlash])
 }

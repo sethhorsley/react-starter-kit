@@ -1,11 +1,11 @@
 import { Form, Head } from "@inertiajs/react"
-import { LoaderCircle } from "lucide-react"
 
 import InputError from "@/components/input-error"
 import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Spinner } from "@/components/ui/spinner"
 import AuthLayout from "@/layouts/auth-layout"
 import { identityPasswordResetPath, signInPath } from "@/routes"
 
@@ -31,14 +31,12 @@ export default function ForgotPassword() {
                   autoFocus
                   placeholder="email@example.com"
                 />
-                <InputError message={errors.email} />
+                <InputError messages={errors.email} />
               </div>
 
               <div className="my-6 flex items-center justify-start">
                 <Button className="w-full" disabled={processing}>
-                  {processing && (
-                    <LoaderCircle className="h-4 w-4 animate-spin" />
-                  )}
+                  {processing && <Spinner />}
                   Email password reset link
                 </Button>
               </div>

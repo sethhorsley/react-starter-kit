@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import AppLayout from "@/layouts/app-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { identityEmailVerificationPath, settingsEmailPath } from "@/routes"
-import type { BreadcrumbItem, SharedData } from "@/types"
+import type { BreadcrumbItem } from "@/types"
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function Email() {
-  const { auth } = usePage<SharedData>().props
+  const { auth } = usePage().props
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
@@ -58,7 +58,7 @@ export default function Email() {
                     placeholder="Email address"
                   />
 
-                  <InputError className="mt-2" message={errors.email} />
+                  <InputError className="mt-2" messages={errors.email} />
                 </div>
 
                 {!auth.user.verified && (
@@ -89,7 +89,7 @@ export default function Email() {
                     placeholder="Current password"
                   />
 
-                  <InputError message={errors.password_challenge} />
+                  <InputError messages={errors.password_challenge} />
                 </div>
 
                 <div className="flex items-center gap-4">

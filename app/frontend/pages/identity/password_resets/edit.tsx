@@ -1,10 +1,10 @@
 import { Form, Head } from "@inertiajs/react"
-import { LoaderCircle } from "lucide-react"
 
 import InputError from "@/components/input-error"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Spinner } from "@/components/ui/spinner"
 import AuthLayout from "@/layouts/auth-layout"
 import { identityPasswordResetPath } from "@/routes"
 
@@ -39,7 +39,7 @@ export default function ResetPassword({ sid, email }: ResetPasswordProps) {
                 className="mt-1 block w-full"
                 readOnly
               />
-              <InputError message={errors.email} className="mt-2" />
+              <InputError messages={errors.email} className="mt-2" />
             </div>
 
             <div className="grid gap-2">
@@ -53,7 +53,7 @@ export default function ResetPassword({ sid, email }: ResetPasswordProps) {
                 autoFocus
                 placeholder="Password"
               />
-              <InputError message={errors.password} />
+              <InputError messages={errors.password} />
             </div>
 
             <div className="grid gap-2">
@@ -67,13 +67,13 @@ export default function ResetPassword({ sid, email }: ResetPasswordProps) {
                 placeholder="Confirm password"
               />
               <InputError
-                message={errors.password_confirmation}
+                messages={errors.password_confirmation}
                 className="mt-2"
               />
             </div>
 
             <Button type="submit" className="mt-4 w-full" disabled={processing}>
-              {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+              {processing && <Spinner />}
               Reset password
             </Button>
           </div>

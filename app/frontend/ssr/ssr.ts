@@ -35,6 +35,20 @@ createServer((page) =>
 
       return page
     },
+
+    defaults: {
+      form: {
+        forceIndicesArrayFormatInFormData: false,
+        withAllErrors: true,
+      },
+      future: {
+        useScriptElementForInitialPage: true,
+        useDataInertiaHeadAttribute: true,
+        useDialogForErrorModal: true,
+        preserveEqualProps: true,
+      },
+    },
+
     setup: ({ App, props }) => createElement(App, props),
   }),
 )

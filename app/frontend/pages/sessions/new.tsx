@@ -1,11 +1,11 @@
 import { Form, Head } from "@inertiajs/react"
-import { LoaderCircle } from "lucide-react"
 
 import InputError from "@/components/input-error"
 import TextLink from "@/components/text-link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Spinner } from "@/components/ui/spinner"
 import AuthLayout from "@/layouts/auth-layout"
 import { newIdentityPasswordResetPath, signInPath, signUpPath } from "@/routes"
 
@@ -37,7 +37,7 @@ export default function Login() {
                   autoComplete="email"
                   placeholder="email@example.com"
                 />
-                <InputError message={errors.email} />
+                <InputError messages={errors.email} />
               </div>
 
               <div className="grid gap-2">
@@ -60,7 +60,7 @@ export default function Login() {
                   autoComplete="current-password"
                   placeholder="Password"
                 />
-                <InputError message={errors.password} />
+                <InputError messages={errors.password} />
               </div>
 
               <Button
@@ -69,9 +69,7 @@ export default function Login() {
                 tabIndex={4}
                 disabled={processing}
               >
-                {processing && (
-                  <LoaderCircle className="h-4 w-4 animate-spin" />
-                )}
+                {processing && <Spinner />}
                 Log in
               </Button>
             </div>

@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import AppLayout from "@/layouts/app-layout"
 import SettingsLayout from "@/layouts/settings/layout"
 import { settingsProfilePath } from "@/routes"
-import type { BreadcrumbItem, SharedData } from "@/types"
+import type { BreadcrumbItem } from "@/types"
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -20,7 +20,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function Profile() {
-  const { auth } = usePage<SharedData>().props
+  const { auth } = usePage().props
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
@@ -56,7 +56,7 @@ export default function Profile() {
                     placeholder="Full name"
                   />
 
-                  <InputError className="mt-2" message={errors.name} />
+                  <InputError className="mt-2" messages={errors.name} />
                 </div>
 
                 <div className="flex items-center gap-4">
