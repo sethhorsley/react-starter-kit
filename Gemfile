@@ -78,3 +78,5 @@ group :test do
   gem "capybara-lockstep"
   gem "selenium-webdriver"
 end
+
+gem "tidewave", "~> 0.4.2", group: :development
